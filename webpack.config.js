@@ -71,15 +71,21 @@ var config  = {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: './',
-              hmr: process.env.NODE_ENV == 'development',
-            },
+          // {
+          //   loader: MiniCssExtractPlugin.loader,
+          //   options: {
+          //     publicPath: './',
+          //     hmr: process.env.NODE_ENV == 'development',
+          //     sourceMap: true
+          //   },
+          // },  
+          { loader: 'css-loader',
+            options: { sourceMap: true },
           },
-          { loader: 'css-loader' },
-          { loader: 'postcss-loader' },
+          {
+            loader: 'postcss-loader',
+            options: { sourceMap: true }
+          },
           {
             loader: 'sass-loader',
             options: {
@@ -87,20 +93,27 @@ var config  = {
               includePaths: [ bourbon ]
             }
           },
-          { loader: 'import-glob-loader' }
+          { loader: 'import-glob-loader' },
         ],
       },
       {
         test: /\.css$/,
         use: [
+          // {
+          //   loader: MiniCssExtractPlugin.loader,
+          //   options: {
+          //     sourceMap: true,
+          //     hmr: process.env.NODE_ENV == 'development',
+          //   },
+          // },
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV == 'development',
-            },
+            loader: 'css-loader',
+            options: { sourceMap: true },
           },
-          'css-loader',
-          'postcss-loader'
+          {
+            loader: 'postcss-loader',
+            options: { sourceMap: true },
+          },
         ],
       },
       {
