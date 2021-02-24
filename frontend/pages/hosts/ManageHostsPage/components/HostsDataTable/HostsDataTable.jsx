@@ -71,6 +71,7 @@ const HostsDataTable = (props) => {
     rows,
     prepareRow,
     setGlobalFilter,
+    setHiddenColumns,
     state: tableState,
   } = useTable(
     { columns,
@@ -79,6 +80,7 @@ const HostsDataTable = (props) => {
         sortBy: [{ id: DEFAULT_SORT_KEY, desc: true }],
         hiddenColumns,
       },
+      autoResetHiddenColumns: false,
       disableMultiSort: true,
       manualGlobalFilter: true,
       manualSortBy: true,
@@ -105,18 +107,23 @@ const HostsDataTable = (props) => {
     // scrollToTop();
   }, [pageIndex, setPageIndex]);
 
-  // Since searchQuery is feed in from the parent, we want to debounce the globalFilter change
+  // Since searchQuery is passed in from the parent, we want to debounce the globalFilter change
   // when we see it change.
   useEffect(() => {
     debouncedGlobalFilter(searchQuery);
   }, [debouncedGlobalFilter, searchQuery]);
+
+  // Track hidden columns changing and update the table accordingly.
+  useEffect(() => {
+    setHiddenColumns(hiddenColumns);
+  }, [setHiddenColumns, hiddenColumns]);
 
   // Any changes to these relevant table search params will fire off an action to get the new
   // hosts data.
   useEffect(() => {
     if (pageIndexChangeRef.current) { // the pageIndex has changed
       dispatch(getHostTableData(pageIndex, pageSize, selectedFilter, globalFilter, sortBy));
-    } else {
+    } else { // something besides pageIndex changes. we want to get results starting at the first page
       setPageIndex(0);
       dispatch(getHostTableData(0, pageSize, selectedFilter, globalFilter, sortBy));
     }
