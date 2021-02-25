@@ -115,12 +115,10 @@ class HostContainer extends Component {
       <div className={`${baseClass}`}>
         {/* TODO: find a way to move these controls into the table component */}
         <div className={`${baseClass}__table-controls`}>
-          <div >
-            <Button onClick={this.onEditColumnsClick} variant="unstyled" className={`${baseClass}__edit-columns-button`}>
-              <img src={EditColumnsIcon} alt="edit columns icon" />
-              Edit columns
-            </Button>
-          </div>
+          <Button onClick={this.onEditColumnsClick} variant="unstyled" className={`${baseClass}__edit-columns-button`}>
+            <img src={EditColumnsIcon} alt="edit columns icon" />
+            Edit columns
+          </Button>
           <div className={`${baseClass}__search-input`}>
             <InputField
               placeholder="Search hosts by hostname"
