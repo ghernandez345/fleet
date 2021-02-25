@@ -159,6 +159,11 @@ const HostsDataTable = (props) => {
         <p className={'manage-hosts__host-count'}>{generateHostCountText(pageIndex, pageSize, rows.length)}</p>
       </div>
       <div className={'hosts-table hosts-table__wrapper'}>
+        {loadingHosts &&
+          <div className={'loading-overlay'}>
+            <Spinner />
+          </div>
+        }
         <table className={'hosts-table__table'}>
           <thead>
             {headerGroups.map(headerGroup => (
@@ -172,22 +177,20 @@ const HostsDataTable = (props) => {
             ))}
           </thead>
           <tbody>
-            {loadingHosts
-              ? <tr><td><Spinner /></td></tr>
-              : rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td {...cell.getCellProps()}>
-                          {cell.render('Cell')}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>
+                        {cell.render('Cell')}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })
             }
           </tbody>
         </table>
