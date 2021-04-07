@@ -8,7 +8,7 @@ interface IStatusCellProps {
 const StatusCell = (props: IStatusCellProps): JSX.Element => {
   const { value } = props;
 
-  const generateClassTag = (rawValue: string) => {
+  const generateClassTag = (rawValue: string): string => {
     const classTag = rawValue.replace(' ', '-').toLowerCase();
 
     return classTag;

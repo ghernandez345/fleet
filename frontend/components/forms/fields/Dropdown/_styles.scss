@@ -149,8 +149,8 @@
   .Select-option {
     color: $core-dark-blue-grey;
     font-size: $x-small;
-    margin: 8px;
-    padding: 10px;
+    margin: $pad-small;
+    padding: $pad-half;
     display: block;
 
     &.is-focused {
