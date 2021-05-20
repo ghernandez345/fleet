@@ -17,6 +17,10 @@ const isGlobalMaintainer = (user: IUser): boolean => {
   return user.global_role === "maintainer";
 };
 
+const isGlobalObserver = (user: IUser): boolean => {
+  return user.global_role === "observer";
+};
+
 const isOnGlobalTeam = (user: IUser): boolean => {
   return user.global_role !== null;
 };
@@ -36,6 +40,7 @@ export default {
   isBasicTier,
   isGlobalAdmin,
   isGlobalMaintainer,
+  isGlobalObserver,
   isOnGlobalTeam,
   isTeamObserver,
   isTeamMaintainer,
